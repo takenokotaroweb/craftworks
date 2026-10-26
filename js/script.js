@@ -127,3 +127,59 @@
     if (e.key === 'Escape' || e.key === 'Esc') { close(); }
   });
 })();
+
+// 3) トップの切り替え写真: 「動きを減らす」設定の端末では、動きなしで6秒ごとに入れ替える
+//    (設定がオフの端末は、CSSのふわっと切り替わる動きで動く)
+(function () {
+  var box = document.querySelector('.hero-slides');
+  if (!box || !window.matchMedia) { return; }
+  var slides = box.querySelectorAll('.hero-slide');
+  if (slides.length < 2) { return; }
+
+  var reduce = window.matchMedia('(prefers-reduced-motion: reduce)');
+  var canHover = window.matchMedia('(hover: hover)').matches;
+  var timer = null;
+  var index = 0;
+  var held = false;
+
+  function show(i) {
+    Array.prototype.forEach.call(slides, function (s, n) {
+      if (n === i) { s.classList.add('is-on'); } else { s.classList.remove('is-on'); }
+    });
+  }
+
+  function tick() {
+    if (held) { return; }
+    index = (index + 1) % slides.length;
+    show(index);
+  }
+
+  function start() {
+    box.classList.add('is-stepping');
+    index = 0;
+    show(0);
+    if (timer === null) { timer = window.setInterval(tick, 6000); }
+  }
+
+  function stop() {
+    box.classList.remove('is-stepping');
+    Array.prototype.forEach.call(slides, function (s) { s.classList.remove('is-on'); });
+    if (timer !== null) { window.clearInterval(timer); timer = null; }
+  }
+
+  function update() {
+    if (reduce.matches) { start(); } else { stop(); }
+  }
+
+  // 写真に乗っている間・操作している間は、入れ替えを止める
+  if (canHover) {
+    box.addEventListener('mouseenter', function () { held = true; });
+    box.addEventListener('mouseleave', function () { held = false; });
+  }
+  box.addEventListener('focusin', function () { held = true; });
+  box.addEventListener('focusout', function () { held = false; });
+
+  update();
+  if (reduce.addEventListener) { reduce.addEventListener('change', update); }
+  else if (reduce.addListener) { reduce.addListener(update); }
+})();

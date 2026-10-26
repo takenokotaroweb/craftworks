@@ -194,7 +194,7 @@ body.lightbox-lock { overflow: hidden; }
 .item-buy p { margin: 0; }
 
 
-/* トップの写真: 商品を順に切り替える(1枚6秒、切り替えに2秒かけて、54秒で一巡) */
+/* トップの写真: 商品を順に切り替える(1枚6秒、切り替えに2秒かけて、8枚で48秒で一巡) */
 .hero-slides { position: relative; overflow: visible; margin-bottom: 2.4em; }
 .hero-slide img { border-radius: var(--img-radius); background: var(--tint); }
 .hero-slide {
@@ -208,7 +208,7 @@ body.lightbox-lock { overflow: hidden; }
   visibility: hidden;
   color: #fff;
   text-decoration: none;
-  animation: hero-fade 54s infinite;
+  animation: hero-fade 48s infinite;
 }
 .hero-slide:nth-child(1) { animation-delay: 0s; }
 .hero-slide:nth-child(2) { animation-delay: 6s; }
@@ -218,7 +218,6 @@ body.lightbox-lock { overflow: hidden; }
 .hero-slide:nth-child(6) { animation-delay: 30s; }
 .hero-slide:nth-child(7) { animation-delay: 36s; }
 .hero-slide:nth-child(8) { animation-delay: 42s; }
-.hero-slide:nth-child(9) { animation-delay: 48s; }
 .hero-slides:focus-within .hero-slide { animation-play-state: paused; }
 .hero-slide:focus-visible { outline: 3px solid #e0b24a; outline-offset: -3px; }
 .hero-cap {
@@ -234,16 +233,19 @@ body.lightbox-lock { overflow: hidden; }
   text-align: center;
 }
 @keyframes hero-fade {
-  0%     { opacity: 0; visibility: visible; }
-  3.7%   { opacity: 1; visibility: visible; }
-  11.1%  { opacity: 1; visibility: visible; }
-  14.8%  { opacity: 0; visibility: visible; }
-  14.9%  { opacity: 0; visibility: hidden; }
-  100%   { opacity: 0; visibility: hidden; }
+  0%      { opacity: 0; visibility: visible; }
+  4.17%   { opacity: 1; visibility: visible; }
+  12.5%   { opacity: 1; visibility: visible; }
+  16.67%  { opacity: 0; visibility: visible; }
+  16.8%   { opacity: 0; visibility: hidden; }
+  100%    { opacity: 0; visibility: hidden; }
 }
 @media (prefers-reduced-motion: reduce) {
   .hero-slide { animation: none; }
   .hero-slide:first-child { opacity: 1; visibility: visible; }
+  /* 動きを減らす設定の端末: ふわっと消える動きはなし。script.js が6秒ごとに写真だけ入れ替える */
+  .hero-slides.is-stepping .hero-slide { opacity: 0; visibility: hidden; }
+  .hero-slides.is-stepping .hero-slide.is-on { opacity: 1; visibility: visible; }
 }
 
 /* New! のアイキャッチ */
