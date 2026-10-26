@@ -183,3 +183,14 @@
   if (reduce.addEventListener) { reduce.addEventListener('change', update); }
   else if (reduce.addListener) { reduce.addListener(update); }
 })();
+
+// 4) スマホ・タブレット(指で操作する端末)では、メルカリへのリンクを「同じタブ」で開く
+//    新しいタブで開くと、iPhoneのSafariで、メルカリのアプリが起動しないことがあるため。
+//    パソコンでは、これまでどおり新しいタブで開く。
+(function () {
+  if (!window.matchMedia || !window.matchMedia('(pointer: coarse)').matches) { return; }
+  var links = document.querySelectorAll('a[href^="https://jp.mercari.com/"]');
+  Array.prototype.forEach.call(links, function (a) {
+    a.removeAttribute('target');
+  });
+})();
