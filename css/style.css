@@ -328,6 +328,9 @@ body.lightbox-lock { overflow: hidden; }
 
 /* スマホ */
 @media (max-width: 720px) {
+  /* スマホではトップのボタンを消す(プロフィールのURLはアプリで開かないため。パソコンは残す) */
+  .hero-text .buttons { display: none; }
+  #buy .buttons { display: none; }
   .cards { grid-template-columns: repeat(2, 1fr); gap: 14px; }
   .nav a { margin-left: 0; margin-right: 14px; }
   .gallery { grid-template-columns: 1fr; justify-content: stretch; }
