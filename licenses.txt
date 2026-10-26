@@ -1,0 +1,12 @@
+こばやしたけのこ商店 - 使用しているもの
+
+[フォント]
+Zen Maru Gothic
+Copyright The Zen Maru Gothic Project Authors (https://github.com/googlefonts/zen-marugothic)
+SIL Open Font License, Version 1.1 のもとで提供されています。
+https://openfontlicense.org
+このサイトでは、Google Fonts から読み込んで表示しています。
+
+[写真・文章]
+このサイトの写真と文章は、こばやしたけのこ商店のものです。
+無断での転載・再配布はご遠慮ください。
